@@ -1,0 +1,20 @@
+2
+4 3 7
+S A B C
+a b c
+S=>A B
+S=>S C B
+A=>B
+B=>b B
+B=>b
+C=>c C
+C=>&
+4 4 6
+X Y D E
+x y d e
+X=>e D
+Y=>x Y x
+Y=>X y D
+D=>y d y
+D=>&
+E=>e
