@@ -10,7 +10,7 @@ entrada = open('entrada.txt', 'r')
 saida = open('saida.txt', 'w')
 
 #lendo todas as linhas do arquivo
-#e guardando em 'n' o número de gramáticas
+#e guardando em 'n' o número de gramáticas (primeiro elemento do arquivo)
 linhas = entrada.readlines()
 n = linhas[0]
 
