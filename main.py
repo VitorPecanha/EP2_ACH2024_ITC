@@ -12,7 +12,7 @@ saida = open('saida.txt', 'w')
 #lendo todas as linhas do arquivo
 #e guardando em 'n' o número de gramáticas (primeiro elemento do arquivo)
 linhas = entrada.readlines()
-n = linhas[0]
+n = linhas[0] if int(linhas[0]) >= 0 else quit()
 
 #fechando os arquivos
 entrada.close()
