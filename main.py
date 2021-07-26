@@ -33,7 +33,9 @@ for i in range(0, int(n)):
 
     if v1 < 0 or t1 < 0 or r1 < 0:
         conteudo.append('ERRO 1\n')
-        pass
+        continue
+
+    print('oi')
 
     aux = posicao + 1
     posicao = posicao + 3 + r1
