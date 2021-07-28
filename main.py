@@ -22,8 +22,6 @@ def remove_vazio(gramaticas):
             if('&' in gramatica.regras_substituicao[i][1]):
                 del(gramatica.regras_substituicao[i][1])
                 del(gramatica.regras_substituicao[i][0])
-            print(gramatica.regras_substituicao[i])
-
 
 #abertura do arquivo de entrada
 entrada = open('entrada.txt', 'r')
