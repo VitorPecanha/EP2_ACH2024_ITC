@@ -18,10 +18,23 @@ class Gramatica:
 
 def remove_vazio(gramaticas):
     for gramatica in gramaticas:
+        novas_regras = []
         for i in range(gramatica.num_regras):
             if('&' in gramatica.regras_substituicao[i][1]):
-                del(gramatica.regras_substituicao[i][1])
-                del(gramatica.regras_substituicao[i][0])
+                gramatica.num_regras -= 1
+                continue
+            novas_regras.append(gramatica.regras_substituicao[i])
+        gramatica.regras_substituicao = novas_regras
+
+def remove_unitaria(gramaticas):
+    for gramatica in gramaticas:
+        novas_regras = []
+        for i in range(gramatica.num_regras):
+            if(gramatica.regras_substituicao[i][0] in gramatica.regras_substituicao[i][1]):
+                gramatica.num_regras -= 1
+                continue
+            novas_regras.append((gramatica.regras_substituicao[i]))
+        print(novas_regras)
 
 #abertura do arquivo de entrada
 entrada = open('entrada.txt', 'r')
@@ -64,6 +77,7 @@ for i in range(0, n):
     gramaticas.append(nova_gramatica)
 
 remove_vazio(gramaticas)
+remove_unitaria(gramaticas)
 
 #fechando os arquivos
 entrada.close()
