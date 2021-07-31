@@ -33,8 +33,25 @@ def remove_unitaria(gramaticas):
             if(gramatica.regras_substituicao[i][0] in gramatica.regras_substituicao[i][1]):
                 gramatica.num_regras -= 1
                 continue
-            novas_regras.append((gramatica.regras_substituicao[i]))
-        print(novas_regras)
+            novas_regras.append(gramatica.regras_substituicao[i])
+        gramatica.regras_substituicao = novas_regras
+
+def remove_inacessivel(gramaticas):
+    for gramatica in gramaticas:
+        acessiveis = []
+        acessiveis.append(gramatica.regras_substituicao[0][0])
+        for i in range(gramatica.num_simbolos_n_termiais):
+            for j in range(gramatica.num_regras):
+                if(gramatica.simbolos_n_terminais[i] in gramatica.regras_substituicao[j][1]) and (gramatica.simbolos_n_terminais[i] not in acessiveis):
+                    acessiveis.append(gramatica.simbolos_n_terminais[i])
+                    continue
+        novas_regras = []
+        for i in range(gramatica.num_regras):
+            if(gramatica.regras_substituicao[i][0] not in acessiveis):
+                gramatica.num_regras -= 1
+                continue
+            novas_regras.append(gramatica.regras_substituicao[i])
+        gramatica.regras_substituicao = novas_regras
 
 #abertura do arquivo de entrada
 entrada = open('entrada.txt', 'r')
@@ -78,6 +95,7 @@ for i in range(0, n):
 
 remove_vazio(gramaticas)
 remove_unitaria(gramaticas)
+remove_inacessivel(gramaticas)
 
 #fechando os arquivos
 entrada.close()
