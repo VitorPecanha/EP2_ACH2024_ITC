@@ -10,11 +10,27 @@ class Gramatica:
         self.num_regras = r1
         self.simbolos_n_terminais = regras[0].split(' ')
         self.simbolos_terminais = regras[1].split(' ')
+        self.simbolo_validos = self.simbolos_terminais + self.simbolos_n_terminais
+        self.simbolo_validos.append('&')
         self.regras_substituicao = []
+        self.erro = ''
     
         for i in range(2, len(regras)):
             aux = regras[i].split('=>')
             self.regras_substituicao.append(aux)
+
+        for n_terminal in self.simbolos_n_terminais:
+            if n_terminal in self.simbolos_terminais and self.erro == '':
+                self.erro = 'ERRO 2'
+
+        for terminal in self.simbolos_terminais:
+            for i in range(self.num_regras):
+                if terminal in self.regras_substituicao[i][0] and self.erro == '':
+                    self.erro = 'ERRO 3'
+
+        for i in range(self.num_regras):
+            if len(self.regras_substituicao[i][0]) > 1:
+                self.erro = 'ERRO 5'
 
 def remove_vazio(gramaticas):
     for gramatica in gramaticas:
@@ -52,6 +68,17 @@ def remove_inacessivel(gramaticas):
                 continue
             novas_regras.append(gramatica.regras_substituicao[i])
         gramatica.regras_substituicao = novas_regras
+
+def escreve_gramaticas(gramaticas, saida):
+    saida.write(str(len(gramaticas)) + '\n')
+    for gramatica in gramaticas:
+        if gramatica.erro != '':
+            saida.write(gramatica.erro)
+            continue
+        saida.write(str(gramatica.num_simbolos_n_termiais) + ' ' + str(gramatica.num_simbolos_terminais) + ' ')
+        saida.write(str(len(gramatica.regras_substituicao)) + '\n')
+        for regras in gramatica.regras_substituicao:
+            saida.write(regras[0] + ' => ' + regras[1])
 
 #abertura do arquivo de entrada
 entrada = open('entrada.txt', 'r')
@@ -96,6 +123,7 @@ for i in range(0, n):
 remove_vazio(gramaticas)
 remove_unitaria(gramaticas)
 remove_inacessivel(gramaticas)
+escreve_gramaticas(gramaticas, saida)
 
 #fechando os arquivos
 entrada.close()
